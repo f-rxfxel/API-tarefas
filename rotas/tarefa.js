@@ -52,4 +52,30 @@ Router.delete("/tarefas/:id", (req, res) => {
     }
 })
 
+Router.put('/tarefas/:id', (req, res) => {
+    try {
+        const { id } = req.params;
+        const dados = req.body;
+
+        const tarefaAtualizada = repositorio.update(id, dados);
+
+        res.send(tarefaAtualizada);
+    } catch (err) {
+        res.status(400).send(err.message);
+    }
+});
+
+Router.patch('/tarefas/:id', (req, res) => {
+    try {
+        const { id } = req.params;
+        const dados = req.body;
+
+        const tarefaAtualizada = repositorio.partialUpdate(id, dados);
+
+        res.send(tarefaAtualizada);
+    } catch (err) {
+        res.status(400).send(err.message);
+    }
+});
+
 module.exports = Router

@@ -52,6 +52,49 @@ const tarefaRepositorio = () => {
                 throw new Error("Dados inválidos para cadastrar.")
             }
         },
+
+        update: (id, dados) => {
+            const tarefaExistente = tarefas.find((task) => task.id == id);
+
+            if (!tarefaExistente) {
+                throw new Error("Tarefa inexistente");
+            }
+
+            if (validacao(dados)) {
+                tarefaExistente.nome = dados.nome || tarefaExistente.nome;
+                tarefaExistente.descricao = dados.descricao || tarefaExistente.descricao;
+                tarefaExistente.status = dados.status || tarefaExistente.status;
+
+                return tarefaExistente;
+            } else {
+                throw new Error("Dados inválidos para atualização");
+            }
+        },
+
+        partialUpdate: (id, dados) => {
+            const tarefaExistente = tarefas.find((task) => task.id == id);
+
+            if (!tarefaExistente) {
+                throw new Error("Tarefa inexistente");
+            }
+
+            if (validacao(dados)) {
+                if (dados.nome) {
+                    tarefaExistente.nome = dados.nome;
+                }
+                if (dados.descricao) {
+                    tarefaExistente.descricao = dados.descricao;
+                }
+                if (dados.status) {
+                    tarefaExistente.status = dados.status;
+                }
+
+                return tarefaExistente;
+            } else {
+                throw new Error("Dados inválidos para atualização parcial");
+            }
+        },
+
         destroy: (id) => {
             const tarefas_filtrados = tarefas.filter(task => task.id == id)
 
