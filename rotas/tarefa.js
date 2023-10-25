@@ -4,6 +4,29 @@ const repositorio = tarefaRepositorio()
 const Router = require('express').Router()
 
 Router.get('/tarefas', (req, res) => {
+    // #swagger.tags = ['Tarefas']
+        // #swagger.summary = 'Requisite todas as tarefas.'
+        // #swagger.description = 'Descrição mais detalhada da rota aqui!'
+        /* #swagger.responses[200] = {
+            description: 'Retorno com sucesso, devolve todos os dados das tarefas.',
+            schema: [
+                {
+                    nome: "Nome da Tarefa",
+                    descricao: "Descrição da tarefa",
+                    status: "Status",
+                    id: ID da tarefa
+                }
+            ]
+        }
+            #swagger.responses[404] = {
+                description: 'Quando não existe nenhum dado'
+            }
+            #swagger.responses[400] = {
+                description: 'Quando o usuário ou cliente envia dados de forma incorreta.',
+                schema: "Mensagem de erro apontando as falhas enviadas"
+            }
+        
+        */
     try {
         const tarefas = repositorio.getAll()
         res.send(tarefas)
@@ -15,6 +38,7 @@ Router.get('/tarefas', (req, res) => {
 })
 
 Router.get('/tarefas/:id', (req, res) => {
+    // #swagger.tags = ['Tarefas']
     try {
         const { id } = req.params
 
@@ -29,6 +53,17 @@ Router.get('/tarefas/:id', (req, res) => {
 })
 
 Router.post("/tarefas", (req, res) => {
+    // #swagger.tags = ['Tarefas']
+        /* #swagger.parameters['tarefa'] = {
+            in: 'body',
+            description: 'Dados enviados para cadastrar a tarefa:',
+            required: true,
+            schema: {
+                $nome: "Nome da Tarefa",
+                $descricao: "Descrição da tarefa",
+                $status: "Status"
+            }
+        } */
     try {
         const dados = req.body
 
